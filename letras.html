@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Letras de Músicas</title>
+    <style>
+        /* Configurações Globais e Background */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            /* Imagem de fundo: Lâmpada incandescente com filtro escuro para legibilidade */
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), 
+                        url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=1920') no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Layout Principal (Menu + Conteúdo) */
+        .main-layout {
+            display: flex;
+            flex-direction: row;
+            max-width: 1200px;
+            width: 95%;
+            margin: 40px auto;
+            gap: 30px;
+        }
+
+        /* Menu Lateral de Músicas */
+        .sidebar {
+            flex: 1;
+            background: rgba(20, 20, 20, 0.7);
+            padding: 25px;
+            border-radius: 15px;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: #fdb813;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .music-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .music-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .music-item:hover {
+            background: rgba(253, 184, 19, 0.1);
+            border-left: 3px solid #fdb813;
+        }
+
+        .music-item.active {
+            background: rgba(253, 184, 19, 0.2);
+            border-left: 3px solid #fdb813;
+            font-weight: bold;
+            color: #fdb813;
+        }
+
+        /* Container da Letra (Painel Central) */
+        .content-area {
+            flex: 2;
+            background: rgba(20, 20, 20, 0.6);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(253, 184, 19, 0.1);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            min-height: 50vh;
+        }
+
+        /* Cabeçalho da Música */
+        header h1 {
+            font-size: 2.3rem;
+            margin-bottom: 5px;
+            color: #fdb813;
+            text-shadow: 0 0 10px rgba(253, 184, 19, 0.4);
+        }
+
+        header h2 {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: #ddd;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(253, 184, 19, 0.5), transparent);
+            margin-bottom: 30px;
+        }
+
+        /* Texto da Letra */
+        .letra {
+            font-size: 1.15rem;
+            line-height: 1.8;
+            letter-spacing: 0.5px;
+            color: #f0f0f0;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .letra p {
+            margin-bottom: 25px;
+        }
+
+        /* Classe para destacar o refrão */
+        .refrao {
+            font-style: italic;
+            color: #ffe699;
+            border-left: 2px solid #fdb813;
+            border-right: 2px solid #fdb813;
+            padding: 0 15px;
+            display: inline-block;
+        }
+
+        /* Animação de transição suave ao trocar de música */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsividade (Celular) */
+        @media (max-width: 768px) {
+            .main-layout {
+                flex-direction: column;
+                margin: 20px auto;
+            }
+            .sidebar {
+                max-height: 200px;
+            }
+            .content-area {
+                padding: 20px;
+            }
+            header h1 { font-size: 1.8rem; }
+        }
+		nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.nav-links a:hover {
+    background: #ff6b35;
+    color: white;
+}
+
+.nav-links a.active {
+    background: #ff6b35;
+    color: white;
+}
+		
+		
+		
+		
+    </style>
+</head>
+<body>
+ <header>
+        <nav>
+            <div class="logo">
+                <h1>🥁 Ritmo & Aço</h1>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Agenda</a></li>
+                <li><a href="ensaios.html">Ensaios</a></li>
+                <li><a href="integrantes.html">Integrantes</a></li>
+				<li><a href="letras.html">Composições</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main-layout">
+        
+        <aside class="sidebar">
+            <h3>Minha Playlist</h3>
+            <ul class="music-list">
+                <li class="music-item active" onclick="trocarMusica(1)">1. Geração Vitrine</li>
+                <li class="music-item" onclick="trocarMusica(2)">2. Noites Elétricas</li>
+                <li class="music-item" onclick="trocarMusica(3)">3. Ideias Perdidas</li>
+                <li class="music-item" onclick="trocarMusica(4)">4. Nova Inspiração</li>
+            </ul>
+        </aside>
+
+        <main class="content-area" id="player-letras">
+            </main>
+
+    </div>
+
+    <script>
+        // Banco de dados das músicas
+        const bancoDeMusicas = {
+            1: {
+                titulo: "Geração Vitrine",
+                artista: "NESS",
+                letra: `
+                    <p>Prometeram personalidade<br>
+                    entregaram um molde padrão<br>
+                    todo mundo quer ser unico<br>
+                    seguindo a mesma direção.</p>
+					
+					<p>Acordo me comparando<br>
+					com quem eu nunca vi<br>
+					vivendo uma vida inteira<br>
+					que nem sei se escolhi.<p>
+                    
+                    <p class="refrao">Somos a Geração Vitrine<br>
+                    Somos a Geração Vitrine<br>
+                    Somos a Geração Vitrine<br>
+                    </p>
+                    
+                    <p>Somos frageis dizem eles<br>
+					talvez seja verdade<br>
+					quebramos com excesso<br>
+					de realidade. </p>
+                `
+            },
+            2: {
+                titulo: "ANESTESIA PORTÁTIL",
+                artista: "NESS",
+                letra: `
+                    <p>Quando eu era moleque<br>
+                    o tédio vinha me bater<br>
+                    sentava na calçada<br>
+                    não tinha pra onde correr.</p>
+					<p> olhava pra parede<br>
+					contava trinca no chão<br>
+					inventava qual quer coisa<br>
+					pra fugir da solidão. <p>
+                    
+                    <p class="refrao">São noites elétricas, alta tensão<br>
+                    Cuidado para não queimar o fusível<br>
+                    Batendo no ritmo do coração<br>
+                    Tornando o impossível, visível.</p>
+                    
+                    <p>A resistência que a gente cria<br>
+                    Só faz o nosso fogo aumentar<br>
+                    Energia pura que contagia<br>
+                    Até o dia clarear.</p>
+                `
+            },
+            3: {
+                titulo: "Ideias Perdidas",
+                artista: "Clube dos Pensadores",
+                letra: `
+                    <p>Uma lâmpada se acende na mente<br>
+                    Um insight que vem do nada<br>
+                    Pensamento que corre urgente<br>
+                    Pela estrada já deserta.</p>
+                    
+                    <p class="refrao">Ideias perdidas no escuro<br>
+                    Esperando alguém acender o interruptor<br>
+                    Construindo pontes sobre o muro<br>
+                    Transformando a dúvida em amor.</p>
+                    
+                    <p>O brilho amarelo, antigo e quente<br>
+                    Traz de volta a velha inspiração<br>
+                    O que parecia ausente<br>
+                    Virou a letra dessa canção.</p>
+                `
+            },
+            4: {
+                titulo: "Nova Inspiração",
+                artista: "Nome do Artista",
+                letra: `
+                    <p>Primeiro verso da nova música aqui<br>
+                    Segunda linha para estruturar a estrofe<br>
+                    Basta alterar estes textos livremente<br>
+                    Para encaixar a composição que quiser.</p>
+                    
+                    <p class="refrao">Aqui fica o refrão da nova música<br>
+                    Mantendo o destaque visual dourado<br>
+                    Pronto e integrado perfeitamente<br>
+                    Neste layout que você criou.</p>
+                `
+            }
+        };
+
+        // Função que altera a música na tela
+        function trocarMusica(id) {
+            const musica = bancoDeMusicas[id];
+            const container = document.getElementById('player-letras');
+            
+            // Atualiza o HTML da área de conteúdo
+            container.innerHTML = `
+                <header>
+                    <h1>${musica.titulo}</h1>
+                    <h2>${musica.artista}</h2>
+                </header>
+                <hr>
+                <div class="letra">
+                    ${musica.letra}
+                </div>
+            `;
+
+            // Atualiza a classe ativa no menu lateral
+            const itens = document.querySelectorAll('.music-item');
+            itens.forEach((item, index) => {
+                if (index === (id - 1)) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        }
+
+        // Carrega a primeira música automaticamente ao abrir a página
+        trocarMusica(1);
+    </script>
+</body>
+</html>
